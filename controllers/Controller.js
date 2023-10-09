@@ -18,8 +18,17 @@ export default class Controller {
             else
                 this.HttpContext.response.JSON(this.repository.getAll());
         }
-        else
+        else if (this.HttpContext.path.controllerName == "MathsController"){
+            if (this.HttpContext.ReturnMathResult()){
+                this.HttpContext.response.JSON(this.HttpContext.path.params);
+            }else{
+                this.HttpContext.response.badRequest("Opérande invalide");
+            }
+            //this.HttpContext.path.params
+        }else{
+
             this.HttpContext.response.notImplemented();
+        }
     }
     post(data) {
         data = this.repository.add(data);
